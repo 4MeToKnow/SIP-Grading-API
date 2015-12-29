@@ -113,7 +113,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -134,11 +133,20 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\staffController.cs" />
+    <Compile Include="DBHelper\DatabaseConnectionString.cs" />
+    <Compile Include="DBHelper\DatabaseDeleteQuery.cs" />
+    <Compile Include="DBHelper\DatabaseHelperMain.cs" />
+    <Compile Include="DBHelper\DatabaseHelperSettings.cs" />
+    <Compile Include="DBHelper\DatabaseInsertQuery.cs" />
+    <Compile Include="DBHelper\DatabaseRetriveQuery.cs" />
+    <Compile Include="DBHelper\DatabaseUpdateQuery.cs" />
+    <Compile Include="DBHelper\MasterDBManager.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\staffdbmanager.cs" />
+    <Compile Include="Models\staff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
