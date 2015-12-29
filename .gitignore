@@ -237,3 +237,4 @@ SIP-Grading-API/obj/Debug/SIP-Grading-API.pdb
 *.dll
 SIP-Grading-API/obj/Debug/SIP-Grading-API.csproj.FileListAbsolute.txt
 *.cache
+*.dll
