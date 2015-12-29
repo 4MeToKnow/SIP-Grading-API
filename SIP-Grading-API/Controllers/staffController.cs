@@ -18,9 +18,9 @@ namespace SIP_Grading_API.Controllers
         {
             return manager.Getallstaff();
         }
-        public ArrayList getstaffbystaffid(staff staff)
+        public ArrayList getstaffbystaffid(string staffID)
         {
-            return manager.Getstaffbystaffid(staff.staffid);
+            return manager.Getstaffbystaffid(staffID);
         }
         public bool Addstaff(staff staff)
         {

@@ -30,6 +30,7 @@
 \\Mac\Home\Documents\School Work\Major Project\SIP-Grading-API\SIP-Grading-API\obj\Debug\SIP-Grading-API.csprojResolveAssemblyReference.cache
 \\Mac\Home\Documents\School Work\Major Project\SIP-Grading-API\SIP-Grading-API\obj\Debug\SIP-Grading-API.dll
 \\Mac\Home\Documents\School Work\Major Project\SIP-Grading-API\SIP-Grading-API\obj\Debug\SIP-Grading-API.pdb
+<<<<<<< HEAD
 C:\Users\Patrick\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\obj\Debug\SIP-Grading-API.csprojResolveAssemblyReference.cache
 C:\Users\Patrick\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\obj\Debug\SIP-Grading-API.dll
 C:\Users\Patrick\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\obj\Debug\SIP-Grading-API.pdb
@@ -62,3 +63,37 @@ C:\Users\Patrick\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web
 C:\Users\Patrick\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.WebPages.Deployment.xml
 C:\Users\Patrick\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.WebPages.Razor.xml
 C:\Users\Patrick\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\Antlr3.Runtime.pdb
+=======
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\obj\Debug\SIP-Grading-API.csprojResolveAssemblyReference.cache
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\obj\Debug\SIP-Grading-API.dll
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\obj\Debug\SIP-Grading-API.pdb
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\SIP-Grading-API.dll.config
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\SIP-Grading-API.dll
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\SIP-Grading-API.pdb
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\Antlr3.Runtime.dll
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\Newtonsoft.Json.dll
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Net.Http.Formatting.dll
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.Helpers.dll
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.Http.dll
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.Http.WebHost.dll
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.Mvc.dll
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.Optimization.dll
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.Razor.dll
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.WebPages.Deployment.dll
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.WebPages.dll
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.WebPages.Razor.dll
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\WebGrease.dll
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\Newtonsoft.Json.xml
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Net.Http.Formatting.xml
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.Helpers.xml
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.Http.xml
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.Http.WebHost.xml
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.Mvc.xml
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.Optimization.xml
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.Razor.xml
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.WebPages.xml
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.WebPages.Deployment.xml
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\System.Web.WebPages.Razor.xml
+C:\Users\TP\Documents\GitHub\SIP-Grading-API\SIP-Grading-API\bin\Antlr3.Runtime.pdb
+>>>>>>> origin/master
