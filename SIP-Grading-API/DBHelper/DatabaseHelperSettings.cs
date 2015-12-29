@@ -1,19 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using DatabaseHelper;
-using System.Data.SqlClient;
-using System.Configuration;
-using System.Collections;
+using System.Text;
 
-/// <summary>
-/// Summary description for DatabaseHelperSettings
-/// </summary>
-
-namespace DatabaseHelper
+namespace SIP_Grading_API.DBHelper
 {
-    public class DatabaseHelperSettings : DatabaseHelperMain
+    class DatabaseHelperSettings
     {
         public string dbHost;
         public string dbUsername;
@@ -24,11 +16,10 @@ namespace DatabaseHelper
         {
 
             dbHost = "localhost";
-            dbUsername = "shawnie";
-            dbPassword = "1234";
-            dbName = "Supplier2Database";
-            
+            dbUsername = "4MeToKnow";
+            dbPassword = "81225038";
+            dbName = "SIGrading";
+
         }
     }
-
 }
