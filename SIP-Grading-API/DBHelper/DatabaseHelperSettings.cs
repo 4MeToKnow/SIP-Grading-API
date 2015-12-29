@@ -23,10 +23,10 @@ namespace DatabaseHelper
         public DatabaseHelperSettings()
         {
 
-            dbHost = "localhost";
+            /*dbHost = "localhost";
             dbUsername = "chengkai1";
             dbPassword = "chengkai1";
-            dbName = "SIGrading";
+            dbName = "SIGrading";*/
             
         }
     }

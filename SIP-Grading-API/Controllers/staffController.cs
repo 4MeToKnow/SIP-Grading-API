@@ -30,9 +30,9 @@ namespace SIP_Grading_API.Controllers
         {
             return manager.Updatestaff(staff);
         }
-        public bool Deletestaff(staff staff)
+        public bool Deletestaff(string staffid)
         {
-            return manager.Deletestaff(staff.staffid);
+            return manager.Deletestaff(staffid);
         }
 
     }
