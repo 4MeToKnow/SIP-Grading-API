@@ -24,9 +24,9 @@ namespace DatabaseHelper
         {
 
             dbHost = "localhost";
-            dbUsername = "shawnie";
-            dbPassword = "1234";
-            dbName = "Supplier2Database";
+            dbUsername = "HP/TP";
+            dbPassword = "";
+            dbName = "SIGrading";
             
         }
     }
