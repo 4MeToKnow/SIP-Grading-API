@@ -235,3 +235,5 @@ SIP-Grading-API/DBHelper/DatabaseHelperSettings.cs
 SIP-Grading-API/obj/Debug/SIP-Grading-API.pdb
 *.dll
 *.dll
+SIP-Grading-API/obj/Debug/SIP-Grading-API.csproj.FileListAbsolute.txt
+*.cache
