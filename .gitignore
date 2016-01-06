@@ -230,5 +230,10 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 
-SIP-Grading-API/bin/
-SIP-Grading-API/obj/Debug/
+SIP-Grading-API/bin/*
+SIP-Grading-API/obj/Debug/*
+*.cache
+
+SIP-Grading-API/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+
+*.cache
