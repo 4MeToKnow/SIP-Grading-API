@@ -17,21 +17,28 @@ namespace SIP_Grading_API.Controllers
         {
             return manager.Getallstud();
         }
-        public ArrayList getstudbystudid(student student)
+
+        public ArrayList getstudbystudid(string studid)
         {
-            return manager.Getstudbystudid(student.studid);
+            return manager.Getstudbystudid(studid);
         }
-        public bool Addstud(student student)
+
+        [HttpPost]
+        public bool addstud(student addStud)
         {
-            return manager.Addstud(student);
+            return manager.Addstud(addStud);
         }
-        public bool Updatestudent(student student)
+
+        [HttpPut]
+        public bool updatestudent(string studid, student updateStud)
         {
-            return manager.Updatestud(student);
+            return manager.Updatestud(studid, updateStud);
         }
-        public bool Deletestaff(student student)
+
+        [HttpDelete]
+        public bool deletestudent(string student)
         {
-            return manager.Deletestud(student.studid);
+            return manager.Deletestud(student);
         }
     }
 }

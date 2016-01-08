@@ -12,7 +12,6 @@ namespace SIP_Grading_API.Models
     {
         public bool Addstud(student s)
         {
-
             DatabaseInsertQuery newstudent = new DatabaseInsertQuery("student");
 
             newstudent.AddData("studid", s.studid);
@@ -20,16 +19,14 @@ namespace SIP_Grading_API.Models
             newstudent.AddData("dip", s.dip);
             newstudent.AddData("matricno", s.matricno);
 
-
             return newstudent.RunQuery();
-
         }
+
         public ArrayList Getstudbystudid(string studid)
         {
-
             DatabaseRetriveQuery retrievestud = new DatabaseRetriveQuery("student");
 
-            retrievestud.AddRestriction("studid = " + studid);
+            retrievestud.AddRestriction("studid", "=", studid);
 
             SqlDataReader dr = retrievestud.RunQuery();
 
@@ -37,20 +34,19 @@ namespace SIP_Grading_API.Models
 
             while (dr.Read())
             {
-                student m = new student();
-                m.studid = (string)dr["studid"];
-                m.name = (string)dr["name"];
-                m.dip = (string)dr["dip"];
-                m.matricno = (string)dr["matricno"];
-
-                result.Add(m);
+                student s = new student();
+                s.studid = (string)dr["studid"];
+                s.name = (string)dr["name"];
+                s.dip = (string)dr["dip"];
+                s.matricno = (string)dr["matricno"];
+                result.Add(s);
             }
 
             return result;
         }
+
         public ArrayList Getallstud()
         {
-
             DatabaseRetriveQuery retrievestud = new DatabaseRetriveQuery("student");
 
             SqlDataReader dr = retrievestud.RunQuery();
@@ -59,38 +55,35 @@ namespace SIP_Grading_API.Models
 
             while (dr.Read())
             {
-                student m = new student();
-                m.studid = (string)dr["studid"];
-                m.name = (string)dr["name"];
-                m.dip = (string)dr["dip"];
-                m.matricno = (string)dr["matricno"];
+                student s = new student();
+                s.studid = (string)dr["studid"];
+                s.name = (string)dr["name"];
+                s.dip = (string)dr["dip"];
+                s.matricno = (string)dr["matricno"];
 
-                result.Add(m);
+                result.Add(s);
             }
 
             return result;
-
-
         }
-        public bool Updatestud(student m)
+
+        public bool Updatestud(string studid, student s)
         {
-
-            DatabaseUpdateQuery updatestud = new DatabaseUpdateQuery("student", "studid=" + m.studid);
-            updatestud.AddData("studid", m.studid);
-            updatestud.AddData("name", m.name);
-            updatestud.AddData("dip", m.dip);
-            updatestud.AddData("matricno", m.matricno);
-
+            DatabaseUpdateQuery updatestud = new DatabaseUpdateQuery("student", "studid= '" + s.studid + "'");
+            
+            updatestud.AddData("studid", s.studid);
+            updatestud.AddData("name", s.name);
+            updatestud.AddData("dip", s.dip);
+            updatestud.AddData("matricno", s.matricno);
 
             return updatestud.RunQuery();
-
         }
+
         public bool Deletestud(string studid)
         {
-
-            DatabaseDeleteQuery deletestud = new DatabaseDeleteQuery("student", "studid=" + studid);
+            DatabaseDeleteQuery deletestud = new DatabaseDeleteQuery("student", "studid= " + studid);
+            
             return deletestud.RunQuery();
-
         }
     }
 }

@@ -16,18 +16,25 @@ namespace SIP_Grading_API.Controllers
         {
             return manager.Getallmarks();
         }
+
         public ArrayList getmarksbymschemeid(string mschemeid)
         {
             return manager.Getmarksbymarkingid(mschemeid);
         }
-        public bool Addmarks(markingscheme markingscheme)
+
+        [HttpPost]
+        public bool Addmarks(markingscheme addMarks)
         {
-            return manager.Addmarks(markingscheme);
+            return manager.Addmarks(addMarks);
         }
-        public bool Updatemarks(markingscheme markingscheme)
+
+        [HttpPut]
+        public bool Updatemarks(string mschemeid, markingscheme updateMarks)
         {
-            return manager.Updatemarks(markingscheme);
+            return manager.Updatemarks(mschemeid, updateMarks);
         }
+
+        [HttpDelete]
         public bool Deletemarks(string mschemeid)
         {
             return manager.Deletemarks(mschemeid);

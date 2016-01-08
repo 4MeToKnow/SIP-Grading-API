@@ -1,6 +1,10 @@
 ﻿using DatabaseHelper;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
 
 namespace SIP_Grading_API.Models
 {
@@ -8,7 +12,6 @@ namespace SIP_Grading_API.Models
     {
         public bool Addstaff(staff s)
         {
-
             DatabaseInsertQuery newstaff = new DatabaseInsertQuery("staff");
 
             newstaff.AddData("staffid", s.staffid);
@@ -18,14 +21,13 @@ namespace SIP_Grading_API.Models
             newstaff.AddData("permssn", s.permssn);
 
             return newstaff.RunQuery();
-
         }
+
         public ArrayList Getstaffbystaffid(string staffid)
         {
-
             DatabaseRetriveQuery retrievestaff = new DatabaseRetriveQuery("staff");
 
-            retrievestaff.AddRestriction("staffid = " + staffid);
+            retrievestaff.AddRestriction("staffid", "=", staffid);
 
             SqlDataReader dr = retrievestaff.RunQuery();
 
@@ -33,20 +35,20 @@ namespace SIP_Grading_API.Models
 
             while (dr.Read())
             {
-                staff m = new staff();
-                m.staffid = (string)dr["staffid"];
-                m.username = (string)dr["username"];
-                m.passw = (string)dr["passw"];
-                m.salt = (string)dr["salt"];
-                m.permssn = (string)dr["permssn"];
-                result.Add(m);
+                staff s = new staff();
+                s.staffid = (string)dr["staffid"];
+                s.username = (string)dr["username"];
+                s.passw = (string)dr["passw"];
+                s.salt = (string)dr["salt"];
+                s.permssn = (string)dr["permssn"];
+                result.Add(s);
             }
 
             return result;
         }
+
         public ArrayList Getallstaff()
         {
-
             DatabaseRetriveQuery retrievestaff = new DatabaseRetriveQuery("staff");
 
             SqlDataReader dr = retrievestaff.RunQuery();
@@ -55,38 +57,36 @@ namespace SIP_Grading_API.Models
 
             while (dr.Read())
             {
-                staff m = new staff();
-                m.staffid = (string)dr["staffid"];
-                m.username = (string)dr["username"];
-                m.passw = (string)dr["passw"];
-                m.salt = (string)dr["salt"];
-                m.permssn = (string)dr["permssn"];
-                result.Add(m);
+                staff s = new staff();
+                s.staffid = (string)dr["staffid"];
+                s.username = (string)dr["username"];
+                s.passw = (string)dr["passw"];
+                s.salt = (string)dr["salt"];
+                s.permssn = (string)dr["permssn"];
+                result.Add(s);
             }
 
             return result;
-
-
         }
-        public bool Updatestaff(staff m)
+
+        public bool Updatestaff(string staffID, staff s)
         {
-	
-        DatabaseUpdateQuery updatestaff = new DatabaseUpdateQuery("staff","staffid="+m.staffid);
-	        updatestaff.AddData("staffid", m.staffid);
-	        updatestaff.AddData("username", m.username);
-	        updatestaff.AddData("passw", m.passw);
-            updatestaff.AddData("salt", m.salt);
-            updatestaff.AddData("permssn", m.permssn);
+            DatabaseUpdateQuery updatestaff = new DatabaseUpdateQuery("staff", "staffid= '" + s.staffid +"'");
+            
+            updatestaff.AddData("staffid", s.staffid);
+	        updatestaff.AddData("username", s.username);
+	        updatestaff.AddData("passw", s.passw);
+            updatestaff.AddData("salt", s.salt);
+            updatestaff.AddData("permssn", s.permssn);
 
             return updatestaff.RunQuery();
-
         }
+
         public bool Deletestaff(string staffid)
         {
-	
-	        DatabaseDeleteQuery deletestaff = new DatabaseDeleteQuery("staff","staffid="+staffid);
+	        DatabaseDeleteQuery deletestaff = new DatabaseDeleteQuery("staff", "staffid= " + staffid);
+            
             return deletestaff.RunQuery();
-
         }
     }
 }

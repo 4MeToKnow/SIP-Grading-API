@@ -10,24 +10,22 @@ namespace SIP_Grading_API.Models
 {
     public class markingschemedbmanager
     {
-        public bool Addmarks(markingscheme ms)
+        public bool Addmarks(markingscheme m)
         {
-
             DatabaseInsertQuery newmarks = new DatabaseInsertQuery("markingscheme");
 
-            newmarks.AddData("mschemeid", ms.mschemeid);
-            newmarks.AddData("createdby", ms.createdby);
-            newmarks.AddData("mscheme", ms.mscheme);
+            newmarks.AddData("mschemeid", m.mschemeid);
+            newmarks.AddData("createdby", m.createdby);
+            newmarks.AddData("mscheme", m.mscheme);
 
             return newmarks.RunQuery();
         }
 
         public ArrayList Getmarksbymarkingid(string mschemeid)
         {
-
             DatabaseRetriveQuery retrievemarks = new DatabaseRetriveQuery("markingscheme");
 
-            retrievemarks.AddRestriction("mschemeid = " + mschemeid);
+            retrievemarks.AddRestriction("mschemeid", "=", mschemeid);
 
             SqlDataReader dr = retrievemarks.RunQuery();
 
@@ -65,9 +63,10 @@ namespace SIP_Grading_API.Models
             return result;
         }
 
-        public bool Updatemarks(markingscheme ms)
+        public bool Updatemarks(string mschemeid, markingscheme ms)
         {
-            DatabaseUpdateQuery updatemarks = new DatabaseUpdateQuery("marks", "mschemeid=" + ms.mschemeid);
+            DatabaseUpdateQuery updatemarks = new DatabaseUpdateQuery("markingscheme", "mschemeid= '" + ms.mschemeid +"'");
+
             updatemarks.AddData("mschemeid", ms.mschemeid);
             updatemarks.AddData("createdby", ms.createdby);
             updatemarks.AddData("mscheme", ms.mscheme);

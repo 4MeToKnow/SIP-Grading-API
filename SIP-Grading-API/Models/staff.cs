@@ -12,7 +12,5 @@ namespace SIP_Grading_API.Models
         public string passw { get; set; }
         public string salt { get; set; }
         public string permssn { get; set; }
-
-
     }
 }
