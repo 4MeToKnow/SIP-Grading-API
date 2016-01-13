@@ -18,7 +18,7 @@ namespace SIP_Grading_API.Controllers
             return manager.Getallstud();
         }
 
-        public ArrayList getstudbystudid(string studid)
+        public ArrayList getstudbystudid(int studid)
         {
             return manager.Getstudbystudid(studid);
         }
@@ -30,13 +30,13 @@ namespace SIP_Grading_API.Controllers
         }
 
         [HttpPut]
-        public bool updatestudent(string studid, student updateStud)
+        public bool updatestudent(int studid, student updateStud)
         {
             return manager.Updatestud(studid, updateStud);
         }
 
         [HttpDelete]
-        public bool deletestudent(string student)
+        public bool deletestudent(int student)
         {
             return manager.Deletestud(student);
         }

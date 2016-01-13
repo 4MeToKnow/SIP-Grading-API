@@ -19,7 +19,7 @@ namespace SIP_Grading_API.Controllers
             return manager.Getallstaff();
         }
 
-        public ArrayList getstaffbystaffid(string staffid)
+        public ArrayList getstaffbystaffid(int staffid)
         {
             return manager.Getstaffbystaffid(staffid);
         }
@@ -31,13 +31,13 @@ namespace SIP_Grading_API.Controllers
         }
 
         [HttpPut]
-        public bool Updatestaff(string staffid, staff updateStaff)
+        public bool Updatestaff(int staffid, staff updateStaff)
         {
             return manager.Updatestaff(staffid, updateStaff);
         }
 
         [HttpDelete]
-        public bool Deletestaff(string staffid)
+        public bool Deletestaff(int staffid)
         {
             return manager.Deletestaff(staffid);
         }

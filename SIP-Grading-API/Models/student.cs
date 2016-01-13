@@ -7,7 +7,7 @@ namespace SIP_Grading_API.Models
 {
     public class student
     {
-        public string studid { get; set; }
+        public int studid { get; set; }
         public string name { get; set; }
         public string dip { get; set; }
         public string matricno { get; set; }

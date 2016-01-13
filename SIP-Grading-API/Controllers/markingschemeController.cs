@@ -17,7 +17,7 @@ namespace SIP_Grading_API.Controllers
             return manager.Getallmarks();
         }
 
-        public ArrayList getmarksbymschemeid(string mschemeid)
+        public ArrayList getmarksbymschemeid(int mschemeid)
         {
             return manager.Getmarksbymarkingid(mschemeid);
         }
@@ -29,13 +29,13 @@ namespace SIP_Grading_API.Controllers
         }
 
         [HttpPut]
-        public bool Updatemarks(string mschemeid, markingscheme updateMarks)
+        public bool Updatemarks(int mschemeid, markingscheme updateMarks)
         {
             return manager.Updatemarks(mschemeid, updateMarks);
         }
 
         [HttpDelete]
-        public bool Deletemarks(string mschemeid)
+        public bool Deletemarks(int mschemeid)
         {
             return manager.Deletemarks(mschemeid);
         }

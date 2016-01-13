@@ -14,18 +14,18 @@ namespace SIP_Grading_API.Models
         {
             DatabaseInsertQuery newmarks = new DatabaseInsertQuery("markingscheme");
 
-            newmarks.AddData("mschemeid", m.mschemeid);
+            newmarks.AddData("mschemeid", m.mschemeid.ToString());
             newmarks.AddData("createdby", m.createdby);
             newmarks.AddData("mscheme", m.mscheme);
 
             return newmarks.RunQuery();
         }
 
-        public ArrayList Getmarksbymarkingid(string mschemeid)
+        public ArrayList Getmarksbymarkingid(int mschemeid)
         {
             DatabaseRetriveQuery retrievemarks = new DatabaseRetriveQuery("markingscheme");
 
-            retrievemarks.AddRestriction("mschemeid", "=", mschemeid);
+            retrievemarks.AddRestriction("mschemeid", "=", mschemeid.ToString());
 
             SqlDataReader dr = retrievemarks.RunQuery();
 
@@ -34,7 +34,7 @@ namespace SIP_Grading_API.Models
             while (dr.Read())
             {
                 markingscheme ms = new markingscheme();
-                ms.mschemeid = (string)dr["mschemeid"];
+                ms.mschemeid = (int)dr["mschemeid"];
                 ms.createdby = (string)dr["createdby"];
                 ms.mscheme = (string)dr["mscheme"];
                 result.Add(ms);
@@ -54,7 +54,7 @@ namespace SIP_Grading_API.Models
             while (dr.Read())
             {
                 markingscheme ms = new markingscheme();
-                ms.mschemeid = (string)dr["mschemeid"];
+                ms.mschemeid = (int)dr["mschemeid"];
                 ms.createdby = (string)dr["createdby"];
                 ms.mscheme = (string)dr["mscheme"];
                 result.Add(ms);
@@ -63,18 +63,18 @@ namespace SIP_Grading_API.Models
             return result;
         }
 
-        public bool Updatemarks(string mschemeid, markingscheme ms)
+        public bool Updatemarks(int mschemeid, markingscheme ms)
         {
             DatabaseUpdateQuery updatemarks = new DatabaseUpdateQuery("markingscheme", "mschemeid= '" + ms.mschemeid +"'");
 
-            updatemarks.AddData("mschemeid", ms.mschemeid);
+            updatemarks.AddData("mschemeid", ms.mschemeid.ToString());
             updatemarks.AddData("createdby", ms.createdby);
             updatemarks.AddData("mscheme", ms.mscheme);
 
             return updatemarks.RunQuery();
         }
 
-        public bool Deletemarks(string mschemeid)
+        public bool Deletemarks(int mschemeid)
         {
             DatabaseDeleteQuery deletemarks = new DatabaseDeleteQuery("markingscheme", "mschemeid=" + mschemeid);
             return deletemarks.RunQuery();

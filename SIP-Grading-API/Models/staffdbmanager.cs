@@ -14,7 +14,7 @@ namespace SIP_Grading_API.Models
         {
             DatabaseInsertQuery newstaff = new DatabaseInsertQuery("staff");
 
-            newstaff.AddData("staffid", s.staffid);
+            newstaff.AddData("staffid", s.staffid.ToString());
             newstaff.AddData("username", s.username);
             newstaff.AddData("passw", s.passw);
             newstaff.AddData("salt", s.salt);
@@ -23,11 +23,11 @@ namespace SIP_Grading_API.Models
             return newstaff.RunQuery();
         }
 
-        public ArrayList Getstaffbystaffid(string staffid)
+        public ArrayList Getstaffbystaffid(int staffid)
         {
             DatabaseRetriveQuery retrievestaff = new DatabaseRetriveQuery("staff");
 
-            retrievestaff.AddRestriction("staffid", "=", staffid);
+            retrievestaff.AddRestriction("staffid", "=", staffid.ToString());
 
             SqlDataReader dr = retrievestaff.RunQuery();
 
@@ -36,7 +36,7 @@ namespace SIP_Grading_API.Models
             while (dr.Read())
             {
                 staff s = new staff();
-                s.staffid = (string)dr["staffid"];
+                s.staffid = (int)dr["staffid"];
                 s.username = (string)dr["username"];
                 s.passw = (string)dr["passw"];
                 s.salt = (string)dr["salt"];
@@ -58,7 +58,7 @@ namespace SIP_Grading_API.Models
             while (dr.Read())
             {
                 staff s = new staff();
-                s.staffid = (string)dr["staffid"];
+                s.staffid = (int)dr["staffid"];
                 s.username = (string)dr["username"];
                 s.passw = (string)dr["passw"];
                 s.salt = (string)dr["salt"];
@@ -69,11 +69,11 @@ namespace SIP_Grading_API.Models
             return result;
         }
 
-        public bool Updatestaff(string staffID, staff s)
+        public bool Updatestaff(int staffID, staff s)
         {
             DatabaseUpdateQuery updatestaff = new DatabaseUpdateQuery("staff", "staffid= '" + s.staffid +"'");
-            
-            updatestaff.AddData("staffid", s.staffid);
+
+            updatestaff.AddData("staffid", s.staffid.ToString());
 	        updatestaff.AddData("username", s.username);
 	        updatestaff.AddData("passw", s.passw);
             updatestaff.AddData("salt", s.salt);
@@ -82,7 +82,7 @@ namespace SIP_Grading_API.Models
             return updatestaff.RunQuery();
         }
 
-        public bool Deletestaff(string staffid)
+        public bool Deletestaff(int staffid)
         {
 	        DatabaseDeleteQuery deletestaff = new DatabaseDeleteQuery("staff", "staffid= " + staffid);
             
