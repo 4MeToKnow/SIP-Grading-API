@@ -12,7 +12,7 @@ namespace SIP_Grading_API.Models
     {
         public bool Addassignment(assignment a)
         {
-            DatabaseInsertQuery newassignment = new DatabaseInsertQuery("assignment");
+            DatabaseInsertQuery newassignment = new DatabaseInsertQuery("markingassign");
 
             newassignment.AddData("assignmentid", a.assignmentid.ToString());
             newassignment.AddData("studentid", a.studentid.ToString());
@@ -25,7 +25,7 @@ namespace SIP_Grading_API.Models
 
         public ArrayList Getassignmentbyassignmentid(int assignmentid)
         {
-            DatabaseRetriveQuery retrieveassignment = new DatabaseRetriveQuery("assignment");
+            DatabaseRetriveQuery retrieveassignment = new DatabaseRetriveQuery("markingassign");
 
             retrieveassignment.AddRestriction("assignmentid", "=", assignmentid.ToString());
 
@@ -49,7 +49,7 @@ namespace SIP_Grading_API.Models
 
         public ArrayList Getallassignment()
         {
-            DatabaseRetriveQuery retrieveallassignment = new DatabaseRetriveQuery("assignment");
+            DatabaseRetriveQuery retrieveallassignment = new DatabaseRetriveQuery("markingassign");
 
             SqlDataReader dr = retrieveallassignment.RunQuery();
 
@@ -71,7 +71,7 @@ namespace SIP_Grading_API.Models
 
         public bool Updateassignment(int assignmentid, assignment a)
         {
-            DatabaseUpdateQuery updateassignment = new DatabaseUpdateQuery("assignment", "assignmentid= '" + a.assignmentid + "'");
+            DatabaseUpdateQuery updateassignment = new DatabaseUpdateQuery("markingassign", "assignmentid= '" + a.assignmentid + "'");
 
             updateassignment.AddData("assignmentid", a.assignmentid.ToString());
             updateassignment.AddData("studentid", a.studentid.ToString());
@@ -87,5 +87,76 @@ namespace SIP_Grading_API.Models
             DatabaseDeleteQuery deleteassignment = new DatabaseDeleteQuery("assignment", "assignmentid=" + assignmentid);
             return deleteassignment.RunQuery();
         }
+        public ArrayList Getstudentsbystaffid(int staffid)
+        {
+            DatabaseRetriveQuery retrieveassignment = new DatabaseRetriveQuery("markingassign");
+            //retrieveassignment.AddColumn("studid");
+            retrieveassignment.AddRestriction("staffid", "=", staffid.ToString());
+
+            SqlDataReader dr = retrieveassignment.RunQuery();
+
+            ArrayList result = new ArrayList();
+
+            while (dr.Read())
+            {
+                assignment a = new assignment();
+                a.studentid = (int)dr["studentid"];
+
+                studentdbmanager manager = new studentdbmanager();
+
+                result.Add(manager.Getstudbystudid(a.studentid));
+
+            }
+
+            return result;
+        }
+        public ArrayList Getmschemebyassignmentid(int assignmentid)
+        {
+            DatabaseRetriveQuery retrieveassignment = new DatabaseRetriveQuery("markingassign");
+
+            retrieveassignment.AddRestriction("assignmentid", "=", assignmentid.ToString());
+
+            SqlDataReader dr = retrieveassignment.RunQuery();
+
+            ArrayList result = new ArrayList();
+
+            while (dr.Read())
+            {
+                assignment a = new assignment();
+
+                a.mschemeid = (int)dr["mschemeid"];
+                markingschemedbmanager manager = new markingschemedbmanager();
+
+                result.Add(manager.Getmarksbymarkingid(a.mschemeid));
+            }
+
+            return result;
+        }
+//This method is before updating and after updating
+        public ArrayList Getmarkingschemebystudentid(int studid)
+        {
+            DatabaseRetriveQuery retrieveassignment = new DatabaseRetriveQuery("markingassign");
+
+            retrieveassignment.AddRestriction("studid", "=", studid.ToString());
+
+            SqlDataReader dr = retrieveassignment.RunQuery();
+
+            ArrayList result = new ArrayList();
+
+            while (dr.Read())
+            {
+                assignment a = new assignment();
+
+                a.mschemeid = (int)dr["mschemeid"];
+                markingschemedbmanager manager = new markingschemedbmanager();
+
+                result.Add(manager.Getmarksbymarkingid(a.mschemeid));
+            }
+
+            return result;
+        }
+
+
+
     }
 }

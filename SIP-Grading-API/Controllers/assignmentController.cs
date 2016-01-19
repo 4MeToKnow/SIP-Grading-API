@@ -22,6 +22,21 @@ namespace SIP_Grading_API.Controllers
         {
             return manager.Getassignmentbyassignmentid(assignmentid);
         }
+        //
+        public ArrayList getstudentsbystaffid(int staffid)
+        {
+            return manager.Getstudentsbystaffid(staffid);
+        }
+
+        public ArrayList getmschemebyassignmentid(int assignmentid)
+        {
+            return manager.Getmschemebyassignmentid(assignmentid);
+        }
+
+        public ArrayList getmarkingschemebystudentid(int studid)
+        {
+            return manager.Getmarkingschemebystudentid(studid);
+        }
 
         [HttpPost]
         public bool Addassignment(assignment addAssignment)

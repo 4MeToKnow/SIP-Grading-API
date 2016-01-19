@@ -1,22 +1,32 @@
-﻿using System;
+﻿using DatabaseHelper;
+using SIP_Grading_API.Models;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Http;
 
 namespace SIP_Grading_API.Controllers
 {
     public class loginController : ApiController
     {
-        /*
+      
+        
         //Login with SALT
-        public static bool Login(string input_username, string input_password)
+        [HttpPost]
+        public bool Login(string input_username, string input_password)
         {
             bool successful = false;
-
+            staffdbmanager manager = new staffdbmanager();
             //Gets the salt based on the username
-            ArrayList u = GetRegistrationBy(new string[,] { { "username", "=", input_username } });
+            //Get username from db 
+            //ArrayList u = GetRegistrationBy(new string[,] { { "username", "=", input_username } });
+            ArrayList u = manager.Getstaffbyusername(input_username);
 
             if (u.Count == 0)
             {
@@ -24,11 +34,11 @@ namespace SIP_Grading_API.Controllers
             }
             else
             {
-                Registration r = (Registration)u[0];
-                input_password = TJAHelper.getSHA512(r.salt + "" + input_password);
+                staff r = (staff)u[0];
+                input_password = SIPGradingHelper.getSHA512(r.salt + "" + input_password);
 
 
-                if (input_password == r.password && input_username == r.username)
+                if (input_password == r.passw && input_username == r.username)
                 {
                     successful = true;
                 }
@@ -43,9 +53,9 @@ namespace SIP_Grading_API.Controllers
         }
 
         //API Login DB Manager
-        public static bool Login(string username, string password)
+       /* public static bool Login(string username, string password)
         {
-            DatabaseSelectQuery sel = new DatabaseSelectQuery("VoyagerUser");
+            DatabaseRetriveQuery sel = new DatabaseRetriveQuery("");
             sel.AddRestriction("Username", "=", username);
             sel.AddRestriction("Password", "=", password);
             SqlDataReader d = sel.RunQuery();
@@ -58,14 +68,12 @@ namespace SIP_Grading_API.Controllers
                 return false;
             }
 
-        }
+        }*/
 
+        
 
-        //API Controller for Login (In another class)
-        public bool GetUser(string username, string password)
-        {
-            return repository.Login(username, password);
-        }
-        */
+ 
+
+        
     }
 }

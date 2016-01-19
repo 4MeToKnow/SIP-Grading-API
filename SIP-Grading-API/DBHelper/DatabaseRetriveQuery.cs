@@ -50,7 +50,7 @@ namespace DatabaseHelper
 
         public void AddRestriction(string col, string op, string result)
         {
-            Restrictions.Add(col+""+op+""+result);
+            Restrictions.Add(col+""+op+"'"+result+"'");
         }
 
         public void AddOpend(string Opend)
