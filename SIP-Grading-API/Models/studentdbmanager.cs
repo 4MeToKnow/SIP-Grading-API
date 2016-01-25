@@ -14,7 +14,7 @@ namespace SIP_Grading_API.Models
         {
             DatabaseInsertQuery newstudent = new DatabaseInsertQuery("student");
 
-            newstudent.AddData("studid", s.studid.ToString());
+           
             newstudent.AddData("name", s.name);
             newstudent.AddData("dip", s.dip);
             newstudent.AddData("matricno", s.matricno);
@@ -69,9 +69,9 @@ namespace SIP_Grading_API.Models
 
         public bool Updatestud(int studid, student s)
         {
-            DatabaseUpdateQuery updatestud = new DatabaseUpdateQuery("student", "studid= '" + s.studid + "'");
+            DatabaseUpdateQuery updatestud = new DatabaseUpdateQuery("student", "studid= '" + studid + "'");
 
-            updatestud.AddData("studid", s.studid.ToString());
+           
             updatestud.AddData("name", s.name);
             updatestud.AddData("dip", s.dip);
             updatestud.AddData("matricno", s.matricno);

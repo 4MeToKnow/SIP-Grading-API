@@ -7,8 +7,8 @@ namespace SIP_Grading_API.Models
 {
     public class assignment
     {
-        public int assignmentid { get; set; }
-        public int studentid { get; set; }
+        public int assignid { get; set; }
+        public int studid { get; set; }
         public int staffid { get; set; }
         public int mschemeid { get; set; }
         public int componentid { get; set; }

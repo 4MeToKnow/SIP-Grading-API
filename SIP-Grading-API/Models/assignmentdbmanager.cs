@@ -14,8 +14,8 @@ namespace SIP_Grading_API.Models
         {
             DatabaseInsertQuery newassignment = new DatabaseInsertQuery("markingassign");
 
-            newassignment.AddData("assignmentid", a.assignmentid.ToString());
-            newassignment.AddData("studentid", a.studentid.ToString());
+          
+            newassignment.AddData("studid", a.studid.ToString());
             newassignment.AddData("staffid", a.staffid.ToString());
             newassignment.AddData("mschemeid", a.mschemeid.ToString());
             newassignment.AddData("componentid", a.componentid.ToString());
@@ -23,11 +23,11 @@ namespace SIP_Grading_API.Models
             return newassignment.RunQuery();
         }
 
-        public ArrayList Getassignmentbyassignmentid(int assignmentid)
+       /* public ArrayList Getassignmentbyassignmentid(int assignid)
         {
             DatabaseRetriveQuery retrieveassignment = new DatabaseRetriveQuery("markingassign");
 
-            retrieveassignment.AddRestriction("assignmentid", "=", assignmentid.ToString());
+            retrieveassignment.AddRestriction("assignid", "=", assignid.ToString());
 
             SqlDataReader dr = retrieveassignment.RunQuery();
 
@@ -36,8 +36,8 @@ namespace SIP_Grading_API.Models
             while (dr.Read())
             {
                 assignment a = new assignment();
-                a.assignmentid = (int)dr["assignmentid"];
-                a.studentid = (int)dr["studentid"];
+                a.assignid = (int)dr["assignid"];
+                a.studid = (int)dr["studid"];
                 a.staffid = (int)dr["staffid"];
                 a.mschemeid = (int)dr["mschemeid"];
                 a.componentid = (int)dr["componentid"];
@@ -46,7 +46,7 @@ namespace SIP_Grading_API.Models
 
             return result;
         }
-
+        */
         public ArrayList Getallassignment()
         {
             DatabaseRetriveQuery retrieveallassignment = new DatabaseRetriveQuery("markingassign");
@@ -58,8 +58,8 @@ namespace SIP_Grading_API.Models
             while (dr.Read())
             {
                 assignment a = new assignment();
-                a.assignmentid = (int)dr["assignmentid"];
-                a.studentid = (int)dr["studentid"];
+                a.assignid = (int)dr["assignid"];
+                a.studid = (int)dr["studid"];
                 a.staffid = (int)dr["staffid"];
                 a.mschemeid = (int)dr["mschemeid"];
                 a.componentid = (int)dr["componentid"];
@@ -69,12 +69,12 @@ namespace SIP_Grading_API.Models
             return result;
         }
 
-        public bool Updateassignment(int assignmentid, assignment a)
+        public bool Updateassignment(int assignid, assignment a)
         {
-            DatabaseUpdateQuery updateassignment = new DatabaseUpdateQuery("markingassign", "assignmentid= '" + a.assignmentid + "'");
+            DatabaseUpdateQuery updateassignment = new DatabaseUpdateQuery("markingassign", "assignid= '" + assignid + "'");
 
-            updateassignment.AddData("assignmentid", a.assignmentid.ToString());
-            updateassignment.AddData("studentid", a.studentid.ToString());
+
+            updateassignment.AddData("studid", a.studid.ToString());
             updateassignment.AddData("staffid", a.staffid.ToString());
             updateassignment.AddData("mschemeid", a.mschemeid.ToString());
             updateassignment.AddData("componentid", a.componentid.ToString());
@@ -82,39 +82,40 @@ namespace SIP_Grading_API.Models
             return updateassignment.RunQuery();
         }
 
-        public bool Deleteassignment(int assignmentid)
+        public bool Deleteassignment(int assignid)
         {
-            DatabaseDeleteQuery deleteassignment = new DatabaseDeleteQuery("assignment", "assignmentid=" + assignmentid);
+            DatabaseDeleteQuery deleteassignment = new DatabaseDeleteQuery("markingassign", "assignid=" + assignid);
             return deleteassignment.RunQuery();
         }
-        public ArrayList Getstudentsbystaffid(int staffid)
+
+        //ADDED METHODS
+        public IEnumerable Getstudentsbystaffid(int staffid)
         {
             DatabaseRetriveQuery retrieveassignment = new DatabaseRetriveQuery("markingassign");
             //retrieveassignment.AddColumn("studid");
             retrieveassignment.AddRestriction("staffid", "=", staffid.ToString());
 
             SqlDataReader dr = retrieveassignment.RunQuery();
-
+            
             ArrayList result = new ArrayList();
 
             while (dr.Read())
             {
                 assignment a = new assignment();
-                a.studentid = (int)dr["studentid"];
-
+                a.studid = (int)dr["studid"];
+                a.assignid = (int)dr["assignid"];
                 studentdbmanager manager = new studentdbmanager();
+                result.Add(manager.Getstudbystudid(a.studid));
 
-                result.Add(manager.Getstudbystudid(a.studentid));
-
+               
             }
-
             return result;
         }
-        public ArrayList Getmschemebyassignmentid(int assignmentid)
+        public ArrayList Getmschemebyassignmentid(int assignid)
         {
             DatabaseRetriveQuery retrieveassignment = new DatabaseRetriveQuery("markingassign");
 
-            retrieveassignment.AddRestriction("assignmentid", "=", assignmentid.ToString());
+            retrieveassignment.AddRestriction("assignid", "=", assignid.ToString());
 
             SqlDataReader dr = retrieveassignment.RunQuery();
 

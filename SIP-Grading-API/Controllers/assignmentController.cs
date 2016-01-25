@@ -18,19 +18,19 @@ namespace SIP_Grading_API.Controllers
             return manager.Getallassignment();
         }
 
-        public ArrayList getassignmentbyassignmentid(int assignmentid)
+        /*public ArrayList getassignmentbyassignmentid(int assignid)
         {
-            return manager.Getassignmentbyassignmentid(assignmentid);
-        }
-        //
-        public ArrayList getstudentsbystaffid(int staffid)
+            return manager.Getassignmentbyassignmentid(assignid);
+        }*/
+        
+        public IEnumerable getstudentsbystaffid(int staffid)
         {
             return manager.Getstudentsbystaffid(staffid);
         }
 
-        public ArrayList getmschemebyassignmentid(int assignmentid)
+        public ArrayList getmschemebyassignmentid(int assignid)
         {
-            return manager.Getmschemebyassignmentid(assignmentid);
+            return manager.Getmschemebyassignmentid(assignid);
         }
 
         public ArrayList getmarkingschemebystudentid(int studid)
@@ -45,15 +45,15 @@ namespace SIP_Grading_API.Controllers
         }
 
         [HttpPut]
-        public bool Updateassignment(int assignmentid, assignment updateAssignment)
+        public bool Updateassignment(int assignid, assignment updateAssignment)
         {
-            return manager.Updateassignment(assignmentid, updateAssignment);
+            return manager.Updateassignment(assignid, updateAssignment);
         }
 
         [HttpDelete]
-        public bool Deleteassignment(int assignmentid)
+        public bool Deleteassignment(int assignid)
         {
-            return manager.Deleteassignment(assignmentid);
+            return manager.Deleteassignment(assignid);
         }
     }
 }

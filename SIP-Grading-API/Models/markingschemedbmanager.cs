@@ -14,7 +14,7 @@ namespace SIP_Grading_API.Models
         {
             DatabaseInsertQuery newmarks = new DatabaseInsertQuery("markingscheme");
 
-            newmarks.AddData("mschemeid", m.mschemeid.ToString());
+           
             newmarks.AddData("createdby", m.createdby);
             newmarks.AddData("mscheme", m.mscheme);
 
@@ -65,9 +65,9 @@ namespace SIP_Grading_API.Models
 
         public bool Updatemarks(int mschemeid, markingscheme ms)
         {
-            DatabaseUpdateQuery updatemarks = new DatabaseUpdateQuery("markingscheme", "mschemeid= '" + ms.mschemeid +"'");
+            DatabaseUpdateQuery updatemarks = new DatabaseUpdateQuery("markingscheme", "mschemeid= '" + mschemeid +"'");
 
-            updatemarks.AddData("mschemeid", ms.mschemeid.ToString());
+            
             updatemarks.AddData("createdby", ms.createdby);
             updatemarks.AddData("mscheme", ms.mscheme);
 

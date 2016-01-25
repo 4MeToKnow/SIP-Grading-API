@@ -36,9 +36,9 @@ namespace SIP_Grading_API.Controllers
         }
 
         [HttpDelete]
-        public bool deletestudent(int student)
+        public bool deletestudent(int studid)
         {
-            return manager.Deletestud(student);
+            return manager.Deletestud(studid);
         }
     }
 }
