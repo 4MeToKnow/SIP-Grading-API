@@ -41,10 +41,33 @@ namespace SIP_Grading_API.Models
                 s.matricno = (string)dr["matricno"];
                 result.Add(s);
             }
-
+            
             return result;
         }
 
+
+        /*public String Getstudbystudid(int studid)
+        {
+            DatabaseRetriveQuery retrievestud = new DatabaseRetriveQuery("student");
+
+            retrievestud.AddRestriction("studid", "=", studid.ToString());
+
+            SqlDataReader dr = retrievestud.RunQuery();
+
+            String result = "";
+
+            while (dr.Read())
+            {
+                student s = new student();
+                s.studid = (int)dr["studid"];
+                s.name = (string)dr["name"];
+                s.dip = (string)dr["dip"];
+                s.matricno = (string)dr["matricno"];
+                result = ("studid: " +Convert.ToString(s.studid)+",name: "+ s.name+",dip: " +s.dip+",matricno: " + s.matricno +",");
+            }
+
+            return result;
+        }*/
         public ArrayList Getallstud()
         {
             DatabaseRetriveQuery retrievestud = new DatabaseRetriveQuery("student");

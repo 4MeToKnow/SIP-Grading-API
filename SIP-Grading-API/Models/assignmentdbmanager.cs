@@ -4,7 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Web;
+
 
 namespace SIP_Grading_API.Models
 {
@@ -89,7 +91,7 @@ namespace SIP_Grading_API.Models
         }
 
         //ADDED METHODS
-        public IEnumerable Getstudentsbystaffid(int staffid)
+        /*public ArrayList Getstudentsbystaffid(int staffid)
         {
             DatabaseRetriveQuery retrieveassignment = new DatabaseRetriveQuery("markingassign");
             //retrieveassignment.AddColumn("studid");
@@ -106,11 +108,11 @@ namespace SIP_Grading_API.Models
                 a.assignid = (int)dr["assignid"];
                 studentdbmanager manager = new studentdbmanager();
                 result.Add(manager.Getstudbystudid(a.studid));
-
-               
+                
             }
+
             return result;
-        }
+        }*/
         public ArrayList Getmschemebyassignmentid(int assignid)
         {
             DatabaseRetriveQuery retrieveassignment = new DatabaseRetriveQuery("markingassign");
@@ -156,8 +158,49 @@ namespace SIP_Grading_API.Models
 
             return result;
         }
+public ArrayList Getstudentsbystaffid(int staffid)
+        {
+            DatabaseRetriveQuery retrieveassignment = new DatabaseRetriveQuery("markingassign");
+            //retrieveassignment.AddColumn("studid");
+            retrieveassignment.AddRestriction("staffid", "=", staffid.ToString());
+
+            SqlDataReader dr = retrieveassignment.RunQuery();
+            
+            ArrayList result = new ArrayList();
+
+            while (dr.Read())
+            {
+                hybriddata a = new hybriddata();
+                a.studid = (int)dr["studid"];
+                a.assignid = (int)dr["assignid"];
+                DatabaseRetriveQuery retrievestud = new DatabaseRetriveQuery("student");
+
+                retrievestud.AddRestriction("studid", "=", a.studid.ToString());
+
+                SqlDataReader td = retrievestud.RunQuery();
 
 
+                while (td.Read())
+                {
+                    a.name = (string)td["name"];
+                    a.dip = (string)td["dip"];
+                    a.matricno = (string)td["matricno"];
+                }
+                result.Add(a);               
+            }
+
+            return result;
+        }
+
+
+    }
+    public class hybriddata
+    {
+        public int assignid { get; set; }
+        public int studid { get; set; }
+        public string name { get; set; }
+        public string dip { get; set; }
+        public string matricno { get; set; }
 
     }
 }
