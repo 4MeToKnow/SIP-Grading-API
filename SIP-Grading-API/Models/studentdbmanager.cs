@@ -22,7 +22,7 @@ namespace SIP_Grading_API.Models
             return newstudent.RunQuery();
         }
 
-        public ArrayList Getstudbystudid(int studid)
+        public student Getstudbystudid(int studid)
         {
             DatabaseRetriveQuery retrievestud = new DatabaseRetriveQuery("student");
 
@@ -30,19 +30,19 @@ namespace SIP_Grading_API.Models
 
             SqlDataReader dr = retrievestud.RunQuery();
 
-            ArrayList result = new ArrayList();
-
+             
+             student s = new student();
             while (dr.Read())
             {
-                student s = new student();
+                
                 s.studid = (int)dr["studid"];
                 s.name = (string)dr["name"];
                 s.dip = (string)dr["dip"];
                 s.matricno = (string)dr["matricno"];
-                result.Add(s);
+                
             }
             
-            return result;
+            return s;
         }
 
 

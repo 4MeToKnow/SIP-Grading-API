@@ -18,7 +18,7 @@ namespace SIP_Grading_API.Controllers
             return manager.Getallstud();
         }
 
-        public ArrayList getstudbystudid(int studid)
+        public student getstudbystudid(int studid)
         {
             return manager.Getstudbystudid(studid);
         }

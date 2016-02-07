@@ -38,6 +38,11 @@ namespace SIP_Grading_API.Controllers
             return manager.Getmarkingschemebystudentid(studid);
         }
 
+        public ArrayList Getmarkingschemebymschemeid(int mschemeid)
+        {
+            return manager.Getmschemebymschemeid(mschemeid);
+        }
+
         [HttpPost]
         public bool Addassignment(assignment addAssignment)
         {
