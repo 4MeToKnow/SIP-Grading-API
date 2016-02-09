@@ -12,5 +12,6 @@ namespace SIP_Grading_API.Models
         public int staffid { get; set; }
         public int mschemeid { get; set; }
         public string componentid { get; set; }
+        public string assessmsub { get; set; }
     }
 }

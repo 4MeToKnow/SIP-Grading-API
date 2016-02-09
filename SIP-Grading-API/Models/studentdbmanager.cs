@@ -18,6 +18,7 @@ namespace SIP_Grading_API.Models
             newstudent.AddData("name", s.name);
             newstudent.AddData("dip", s.dip);
             newstudent.AddData("matricno", s.matricno);
+            newstudent.AddData("mschemeassigned", s.mschemeassigned);
 
             return newstudent.RunQuery();
         }
@@ -39,6 +40,7 @@ namespace SIP_Grading_API.Models
                 s.name = (string)dr["name"];
                 s.dip = (string)dr["dip"];
                 s.matricno = (string)dr["matricno"];
+                s.mschemeassigned = (string)dr["mschemeassigned"];
                 
             }
             
@@ -83,7 +85,7 @@ namespace SIP_Grading_API.Models
                 s.name = (string)dr["name"];
                 s.dip = (string)dr["dip"];
                 s.matricno = (string)dr["matricno"];
-
+                s.mschemeassigned = (string)dr["mschemeassigned"];
                 result.Add(s);
             }
 
@@ -98,7 +100,7 @@ namespace SIP_Grading_API.Models
             updatestud.AddData("name", s.name);
             updatestud.AddData("dip", s.dip);
             updatestud.AddData("matricno", s.matricno);
-
+            updatestud.AddData("mschemeassigned", s.mschemeassigned);
             return updatestud.RunQuery();
         }
 

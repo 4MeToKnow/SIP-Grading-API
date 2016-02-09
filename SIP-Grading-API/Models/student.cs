@@ -11,5 +11,6 @@ namespace SIP_Grading_API.Models
         public string name { get; set; }
         public string dip { get; set; }
         public string matricno { get; set; }
+        public string mschemeassigned { get; set; }
     }
 }

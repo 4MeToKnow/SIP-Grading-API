@@ -24,6 +24,7 @@ namespace SIP_Grading_API.Models
             newassignment.AddData("staffid", a.staffid.ToString());
             newassignment.AddData("mschemeid", a.mschemeid.ToString());
             newassignment.AddData("componentid", a.componentid.ToString());
+            newassignment.AddData("assessmsub", a.assessmsub.ToString());
 
             return newassignment.RunQuery();
         }
@@ -68,6 +69,7 @@ namespace SIP_Grading_API.Models
                 a.staffid = (int)dr["staffid"];
                 a.mschemeid = (int)dr["mschemeid"];
                 a.componentid = (string)dr["componentid"];
+                a.assessmsub = (string)dr["assessmsub"];
                 result.Add(a);
             }
 
@@ -83,6 +85,7 @@ namespace SIP_Grading_API.Models
             updateassignment.AddData("staffid", a.staffid.ToString());
             updateassignment.AddData("mschemeid", a.mschemeid.ToString());
             updateassignment.AddData("componentid", a.componentid.ToString());
+            updateassignment.AddData("assessmsub", a.assessmsub.ToString());
 
             return updateassignment.RunQuery();
         }
