@@ -18,6 +18,7 @@ namespace SIP_Grading_API.Models
 
             
             newstaff.AddData("username", s.username);
+            newstaff.AddData("name",s.name);
             newstaff.AddData("passw", password);
             newstaff.AddData("salt", newSalt);
             newstaff.AddData("permssn", s.permssn);
@@ -49,7 +50,33 @@ namespace SIP_Grading_API.Models
 
             return result;
         }
-        public ArrayList Getstaffbystaffid(int staffid)
+
+        public object GetStaffByUsernamePublic(string username)
+        {
+            DatabaseRetriveQuery retrievestaff = new DatabaseRetriveQuery("staff");
+
+            retrievestaff.AddRestriction("username", "=", username.ToString());
+
+            SqlDataReader dr = retrievestaff.RunQuery();
+
+            staff s = new staff();
+
+            while (dr.Read())
+            {
+                s.staffid = (int)dr["staffid"];
+                s.username = (string)dr["username"];
+                s.passw = (string)dr["passw"];
+                s.name = (string)dr["name"];
+                s.salt = (string)dr["salt"];
+                s.permssn = (string)dr["permssn"];
+            }
+
+            object tmpStaff = new { staffid = s.staffid, name = s.name, username = s.username, permission = s.permssn };
+
+            return tmpStaff;
+        }
+
+        public object Getstaffbystaffid(int staffid)
         {
             DatabaseRetriveQuery retrievestaff = new DatabaseRetriveQuery("staff");
 
@@ -57,20 +84,23 @@ namespace SIP_Grading_API.Models
 
             SqlDataReader dr = retrievestaff.RunQuery();
 
-            ArrayList result = new ArrayList();
+            staff s = new staff();
+
 
             while (dr.Read())
             {
-                staff s = new staff();
-//removed s.staffid
+               
+                s.staffid = (int)dr["staffid"];
+                s.name = (string)dr["name"];
                 s.username = (string)dr["username"];
-                s.passw = (string)dr["passw"];
-                s.salt = (string)dr["salt"];
+                //s.passw = (string)dr["passw"];
+                //s.salt = (string)dr["salt"];
                 s.permssn = (string)dr["permssn"];
-                result.Add(s);
             }
 
-            return result;
+            object tmpStaff = new { staffid = s.staffid, name = s.name, username = s.username, permission = s.permssn };
+
+            return tmpStaff;
         }
 
         public ArrayList Getallstaff()
@@ -84,12 +114,13 @@ namespace SIP_Grading_API.Models
             while (dr.Read())
             {
                 staff s = new staff();
-               // s.staffid = (int)dr["staffid"];
+                s.staffid = (int)dr["staffid"];
+                s.name = (string)dr["name"];
                 s.username = (string)dr["username"];
-                s.passw = (string)dr["passw"];
-                s.salt = (string)dr["salt"];
+                //s.passw = (string)dr["passw"];
+                //s.salt = (string)dr["salt"];
                 s.permssn = (string)dr["permssn"];
-                result.Add(s);
+                result.Add(new { staffid = s.staffid, name = s.name, username = s.username, permission = s.permssn });
             }
 
             return result;
@@ -98,19 +129,16 @@ namespace SIP_Grading_API.Models
         public bool Updatestaff(int staffid, staff s)
         {
             DatabaseUpdateQuery updatestaff = new DatabaseUpdateQuery("staff", "staffid= '" + staffid +"'");
-            /* String newSalt = SIPGradingHelper.generateSalt(10);
-                        String password = SIPGradingHelper.getSHA512(newSalt + "" + s.passw);
 
-            
-                        newstaff.AddData("username", s.username);
-                        newstaff.AddData("passw", password);
-                        newstaff.AddData("salt", newSalt);
-                        newstaff.AddData("permssn", s.permssn);*/
-            String newSalt = SIPGradingHelper.generateSalt(10);
-            String password = SIPGradingHelper.getSHA512(newSalt + "" + s.passw);
-	        updatestaff.AddData("username", s.username);
-	        updatestaff.AddData("passw", password);
-            updatestaff.AddData("salt", newSalt);
+            if (s.passw != "")
+            {
+                String newSalt = SIPGradingHelper.generateSalt(10);
+                String password = SIPGradingHelper.getSHA512(newSalt + "" + s.passw);
+                updatestaff.AddData("passw", password);
+                updatestaff.AddData("salt", newSalt);
+            }
+            updatestaff.AddData("username", s.username);
+            updatestaff.AddData("name", s.name);
             updatestaff.AddData("permssn", s.permssn);
 
             return updatestaff.RunQuery();
@@ -119,7 +147,11 @@ namespace SIP_Grading_API.Models
         public bool Deletestaff(int staffid)
         {
 	        DatabaseDeleteQuery deletestaff = new DatabaseDeleteQuery("staff", "staffid= " + staffid);
+
+            DatabaseDeleteQuery delAssm = new DatabaseDeleteQuery("markingassign", "staffid='" + staffid + "'");
             
+            delAssm.RunQuery();
+
             return deletestaff.RunQuery();
         }
     }

@@ -14,9 +14,9 @@ namespace SIP_Grading_API.DBHelper
 
         public DatabaseHelperSettings()
         {
-            dbHost = "localhost";
-            dbUsername = "chengkai1";
-            dbPassword = "chengkai1";
+            dbHost = "SHAWNEEE1EA4\\SQLEXPRESS";
+            dbUsername = "shawnnneee";
+            dbPassword = "1234";
             dbName = "SIGrading";
         }
     }

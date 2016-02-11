@@ -64,7 +64,18 @@ namespace DatabaseHelper{
          */
         public string RealEscapeString(string str)
         {
-            return Regex.Replace(str, @"[\x00'""\b\n\r\t\cZ\\%_]","");
+            string safeString = "";
+            if (str == null)
+            {
+                return "";
+            }
+            else
+            {
+                safeString = str.Replace("\"", "\\\"");
+                safeString = safeString.Replace("'", "\\'");
+                return Regex.Replace(safeString, @"[\x00\b\n\r\t\cZ\\%_]", "");
+            }
+            
         } 
         
 

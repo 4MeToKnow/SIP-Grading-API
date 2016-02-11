@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\assessmentExport\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\assessmentExportController.cs" />
     <Compile Include="Controllers\assignmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\loginController.cs" />
@@ -149,16 +151,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\assessmentExportDBManager.cs" />
+    <Compile Include="Models\assessmentSubmission.cs" />
     <Compile Include="Models\assignment.cs" />
     <Compile Include="Models\assignmentdbmanager.cs" />
     <Compile Include="Models\markingscheme.cs" />
     <Compile Include="Models\markingschemedbmanager.cs" />
+    <Compile Include="Models\newAssignment.cs" />
     <Compile Include="Models\SIPGradingHelper.cs" />
     <Compile Include="Models\staffdbmanager.cs" />
     <Compile Include="Models\staff.cs" />
     <Compile Include="Models\student.cs" />
     <Compile Include="Models\studentdbmanager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\CorsHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

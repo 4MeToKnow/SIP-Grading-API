@@ -69,24 +69,22 @@ namespace SIP_Grading_API.Models
                 a.staffid = (int)dr["staffid"];
                 a.mschemeid = (int)dr["mschemeid"];
                 a.componentid = (string)dr["componentid"];
-                a.assessmsub = (string)dr["assessmsub"];
+
+                if (dr["assessmsub"] != DBNull.Value)
+                {
+                    a.assessmsub = (string)dr["assessmsub"];
+                }
+               
                 result.Add(a);
             }
 
             return result;
         }
 
-        public bool Updateassignment(int assignid, assignment a)
+        public bool Updateassignment(assessmentSubmission submission)
         {
-            DatabaseUpdateQuery updateassignment = new DatabaseUpdateQuery("markingassign", "assignid= '" + assignid + "'");
-
-
-            updateassignment.AddData("studid", a.studid.ToString());
-            updateassignment.AddData("staffid", a.staffid.ToString());
-            updateassignment.AddData("mschemeid", a.mschemeid.ToString());
-            updateassignment.AddData("componentid", a.componentid.ToString());
-            updateassignment.AddData("assessmsub", a.assessmsub.ToString());
-
+            DatabaseUpdateQuery updateassignment = new DatabaseUpdateQuery("markingassign", "assignid= '" + submission.AssignmentID + "'");
+            updateassignment.AddData("assessmsub", submission.Components);
             return updateassignment.RunQuery();
         }
 
@@ -96,6 +94,7 @@ namespace SIP_Grading_API.Models
             return deleteassignment.RunQuery();
         }
 
+        #region unused methods ***DELETE BEFORE SUBMISSION!!!**
         //ADDED METHODS
         /*public ArrayList Getstudentsbystaffid(int staffid)
         {
@@ -119,7 +118,7 @@ namespace SIP_Grading_API.Models
 
             return result;
         }*/
-        public ArrayList Getmschemebyassignmentid(int assignid)
+        /*public ArrayList Getmschemebyassignmentid(int assignid)
         {
             DatabaseRetriveQuery retrieveassignment = new DatabaseRetriveQuery("markingassign");
 
@@ -140,9 +139,9 @@ namespace SIP_Grading_API.Models
             }
 
             return result;
-        }
+        }*/
         //This method is before updating and after updating
-        public ArrayList Getmarkingschemebystudentid(int studid)
+        /*public ArrayList Getmarkingschemebystudentid(int studid)
         {
             DatabaseRetriveQuery retrieveassignment = new DatabaseRetriveQuery("markingassign");
 
@@ -163,7 +162,8 @@ namespace SIP_Grading_API.Models
             }
 
             return result;
-        }
+        }*/
+        #endregion
         public ArrayList Getstudentsbystaffid(int staffid)
         {
             DatabaseRetriveQuery retrieveassignment = new DatabaseRetriveQuery("markingassign");
@@ -179,6 +179,14 @@ namespace SIP_Grading_API.Models
                 hybriddata a = new hybriddata();
                 a.studid = (int)dr["studid"];
                 a.assignid = (int)dr["assignid"];
+                if (dr["assessmsub"].ToString().Length == 0)
+                {
+                    a.assessmentSubmitted = false;
+                }
+                else
+                {
+                    a.assessmentSubmitted = true;
+                }
                 DatabaseRetriveQuery retrievestud = new DatabaseRetriveQuery("student");
 
                 retrievestud.AddRestriction("studid", "=", a.studid.ToString());
@@ -198,11 +206,127 @@ namespace SIP_Grading_API.Models
             return result;
         }
 
-        public ArrayList Getmschemebymschemeid(int mschemeid)
+        public Object Getmschemebystudentid(int studentid)
+        {
+            ArrayList returnList = new ArrayList();
+
+           // var tmpList = new { Student="", MarkingScheme="",StaffAssigned=""};
+
+            DatabaseRetriveQuery studentMarkingScheme = new DatabaseRetriveQuery("student");
+            studentMarkingScheme.AddRestriction("studid", "=", studentid.ToString());
+            SqlDataReader dr = studentMarkingScheme.RunQuery();
+            student studentData = new student();
+            while (dr.Read())
+            {
+                studentData.studid = (int)dr["studid"];
+                studentData.name = (string) dr["name"];
+                studentData.dip = (string)dr["dip"];
+                studentData.matricno = (string)dr["matricno"];
+                studentData.mschemeassigned = (string) dr["mschemeassigned"].ToString();
+            }
+
+            
+            //tmpList.Student = studentData;
+
+            DatabaseRetriveQuery markingSchemeAssignedToStudent = new DatabaseRetriveQuery("markingscheme");
+            markingSchemeAssignedToStudent.AddRestriction("mschemeid", "=", studentData.mschemeassigned);
+            SqlDataReader msdr = markingSchemeAssignedToStudent.RunQuery();
+            List<component> componentlist = new List<component>();
+            string markingSchemeName = "";
+            while (msdr.Read())
+            {
+                markingSchemeName = (string)msdr["name"];
+                componentlist = JsonConvert.DeserializeObject<List<component>>((string) msdr["mscheme"]);
+            }
+
+            var markingScheme = new { name = markingSchemeName, components = componentlist };
+            //tmpList.MarkingScheme = componentlist
+
+            DatabaseRetriveQuery staffAssignedToStudent = new DatabaseRetriveQuery("markingassign");
+            staffAssignedToStudent.AddRestriction("studid", "=", studentid.ToString());
+            SqlDataReader sdr = staffAssignedToStudent.RunQuery();
+            ArrayList staffAssignedToStudentList = new ArrayList();
+            while (sdr.Read())
+            {
+                string componentId = (string)(sdr["componentid"]);
+                var tmp = new { staffID = sdr["staffid"], componentID = componentId.Split(',') };
+                staffAssignedToStudentList.Add(tmp);
+            }
+
+            return new { student = studentData, markingScheme = markingScheme, staffAssigned = staffAssignedToStudentList };
+
+            
+        }
+
+        public bool ProcessNewAssignment(newAssignment assignment)
+        {
+            for (int x = 0; x < assignment.assignedStaff.Count; x++)
+            {
+                DatabaseRetriveQuery countofstaff = new DatabaseRetriveQuery("markingassign");
+                countofstaff.AddRestriction("studid","=",assignment.studentId.ToString());
+                countofstaff.AddRestriction("staffid", "=", assignment.assignedStaff[x].staffId.ToString());
+                countofstaff.AddRestriction("mschemeid", "=", assignment.markingschemeId.ToString());
+                int count = countofstaff.NumRows();
+                if (count == 0)
+                {
+                    DatabaseInsertQuery insertAssessment = new DatabaseInsertQuery("markingassign");
+                    insertAssessment.AddData("studid", assignment.studentId.ToString());
+                    insertAssessment.AddData("staffid", assignment.assignedStaff[x].staffId.ToString());
+                    insertAssessment.AddData("mschemeid", assignment.markingschemeId.ToString());
+                    insertAssessment.AddData("componentid", assignment.assignedStaff[x].componentsAssigned);
+                    insertAssessment.RunQuery();
+                }
+                else
+                {
+                    DatabaseUpdateQuery updateAssessment = new DatabaseUpdateQuery("markingassign","studid = '"+assignment.studentId+"' AND staffid = '"+assignment.assignedStaff[x].staffId+"' AND mschemeid = '"+assignment.markingschemeId+"'");
+                    updateAssessment.AddData("componentid", assignment.assignedStaff[x].componentsAssigned);
+                    updateAssessment.AddData("assessmsub", "");
+                    updateAssessment.RunQuery();
+                }
+            }
+
+            DatabaseRetriveQuery listOfStaffAssigned = new DatabaseRetriveQuery("markingassign");
+            listOfStaffAssigned.AddRestriction("studid", "=", assignment.studentId.ToString());
+            listOfStaffAssigned.AddRestriction("mschemeid", "=", assignment.markingschemeId.ToString());
+            SqlDataReader dr = listOfStaffAssigned.RunQuery();
+
+            List<newAssignmentAssignedStaff> listOfStaffAssignedNow = new List<newAssignmentAssignedStaff>();
+
+            while (dr.Read())
+            {
+                newAssignmentAssignedStaff tmp = new newAssignmentAssignedStaff();
+                tmp.staffId = (int)dr["staffid"];
+                tmp.componentsAssigned = (string)dr["componentid"];
+                listOfStaffAssignedNow.Add(tmp);
+            }
+
+            for (int x = 0; x < listOfStaffAssignedNow.Count; x++)
+            {
+                bool found = false;
+                for (int y = 0; y < assignment.assignedStaff.Count; y++)
+                {
+                    if (listOfStaffAssignedNow[x].staffId == assignment.assignedStaff[y].staffId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    DatabaseDeleteQuery deleteAssignment = new DatabaseDeleteQuery("markingassign","studid = '"+assignment.studentId+"' AND staffid = '"+listOfStaffAssignedNow[x].staffId+"'");
+                    deleteAssignment.RunQuery();
+                }
+            }
+            
+            return true;
+        }
+
+        public hybriddata1 Getmschemebymschemeid(int mschemeid)
         {
             DatabaseRetriveQuery retrieveassignment = new DatabaseRetriveQuery("markingassign");
             //retrieveassignment.AddColumn("studid");
-            retrieveassignment.AddRestriction("mschemeid", "=", mschemeid.ToString());
+            retrieveassignment.AddRestriction("assignid", "=", mschemeid.ToString());
 
             SqlDataReader dr = retrieveassignment.RunQuery();
             ArrayList componentassigned = new ArrayList();
@@ -253,25 +377,23 @@ namespace SIP_Grading_API.Models
 
 
             one.ComponentAssigned = componentassigned;
-            result.Add(one);
-            return result;
+            return one;
         }
 
-        private string stripSlashes(string msscript)
+        public object getAssessmentReview(int assessmentId)
         {
-            char[] characters = msscript.ToCharArray();
-            string returnValue = "";
-            for (int x = 0; x < characters.Length; x++)
+            DatabaseRetriveQuery drq = new DatabaseRetriveQuery("markingassign");
+            drq.AddRestriction("assignid", "=", assessmentId.ToString());
+            SqlDataReader dr = drq.RunQuery();
+            string reviewMarks = "";
+            if (dr.Read())
             {
-                if (characters[x] != '"')
-                {
-                    returnValue += characters[x];
-                }
+                reviewMarks = (string)dr["assessmsub"];
             }
 
-            return returnValue;
-
+            return new { assignmentId = assessmentId, submittedAssessment = reviewMarks };
         }
+
         public class hybriddata
         {
             public int assignid { get; set; }
@@ -279,6 +401,7 @@ namespace SIP_Grading_API.Models
             public string name { get; set; }
             public string dip { get; set; }
             public string matricno { get; set; }
+            public bool assessmentSubmitted { get; set; }
 
         }
         public class component
@@ -299,5 +422,7 @@ namespace SIP_Grading_API.Models
             public ArrayList ComponentAssigned { get; set; }
 
         }
+
+        
     }
 }

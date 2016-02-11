@@ -83,6 +83,19 @@ namespace DatabaseHelper
             return query;
         }
 
+        public int NumRows()
+        {
+            int rowCount = 0;
+            SelectColumn.Add("COUNT(*) AS 'Count'");
+            SqlDataReader dr = RunQuery();
+            if (dr.Read())
+            {
+                rowCount = Convert.ToInt32(dr["Count"]);
+            }
+            return rowCount;
+            
+        }
+
         public SqlDataReader RunQuery()
         {
             return RunQuery(this.BuildQuery());

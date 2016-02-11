@@ -13,7 +13,7 @@ namespace SIP_Grading_API.Controllers
     {
         private static studentdbmanager manager = new studentdbmanager();
 
-        public ArrayList getallstud()
+        public object getallstud()
         {
             return manager.Getallstud();
         }
@@ -24,9 +24,10 @@ namespace SIP_Grading_API.Controllers
         }
 
         [HttpPost]
-        public bool addstud(student addStud)
+
+        public bool addstud(List<student> addstudent)
         {
-            return manager.Addstud(addStud);
+            return manager.Addstud(addstudent);
         }
 
         [HttpPut]

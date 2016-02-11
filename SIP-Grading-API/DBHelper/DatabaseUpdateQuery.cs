@@ -51,7 +51,7 @@ namespace DatabaseHelper
             query += tableName + " ";
             query += "SET ";
             query += base.MergeArrayListString(UpdateData,",");
-            query += "WHERE ";
+            query += " WHERE ";
             query += restriction + " ";
             return query;
         }

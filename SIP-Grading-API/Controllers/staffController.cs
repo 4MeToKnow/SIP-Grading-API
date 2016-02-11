@@ -19,10 +19,16 @@ namespace SIP_Grading_API.Controllers
             return manager.Getallstaff();
         }
 
-        public ArrayList getstaffbyusername(string username)
+        public object getstaffbyusername(string username)
         {
-            return manager.Getstaffbyusername(username);
+            return manager.GetStaffByUsernamePublic(username);
         }
+
+        public object getstaffbystaffid(int staffid)
+        {
+            return manager.Getstaffbystaffid(staffid);
+        }
+
 
         [HttpPost]
         public bool Addstaff(staff addStaff)

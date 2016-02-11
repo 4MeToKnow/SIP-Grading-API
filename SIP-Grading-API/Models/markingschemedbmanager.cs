@@ -13,8 +13,7 @@ namespace SIP_Grading_API.Models
         public bool Addmarks(markingscheme m)
         {
             DatabaseInsertQuery newmarks = new DatabaseInsertQuery("markingscheme");
-
-           
+            newmarks.AddData("name", m.name);
             newmarks.AddData("createdby", m.createdby);
             newmarks.AddData("mscheme", m.mscheme);
 
@@ -55,10 +54,22 @@ namespace SIP_Grading_API.Models
             {
                 markingscheme ms = new markingscheme();
                 ms.mschemeid = (int)dr["mschemeid"];
-                ms.createdby = (string)dr["createdby"];
+                ms.name = (string)dr["name"];
+                
+
+                DatabaseRetriveQuery staffRet = new DatabaseRetriveQuery("staff");
+                staffRet.AddRestriction("staffid", "=", dr["createdby"].ToString());
+                SqlDataReader sdr = staffRet.RunQuery();
+                if (sdr.Read())
+                {
+                    ms.createdby = (string)sdr["name"];
+                }
+
                 ms.mscheme = (string)dr["mscheme"];
                 result.Add(ms);
             }
+
+
 
             return result;
         }

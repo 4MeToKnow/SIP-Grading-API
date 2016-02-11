@@ -28,31 +28,37 @@ namespace SIP_Grading_API.Controllers
             return manager.Getstudentsbystaffid(staffid);
         }
 
-        public ArrayList getmschemebyassignmentid(int assignid)
+        public object getmschemebyassignmentid(int assignid)
         {
-            return manager.Getmschemebyassignmentid(assignid);
+            return manager.Getmschemebymschemeid(assignid);
         }
 
-        public ArrayList getmarkingschemebystudentid(int studid)
+        public Object getmschemebystudentid(int studentid)
         {
-            return manager.Getmarkingschemebystudentid(studid);
+            return manager.Getmschemebystudentid(studentid);
         }
 
-        public ArrayList Getmarkingschemebymschemeid(int mschemeid)
+        public object getSubmittedAssessment(int submittedAssessmentId)
+        {
+            return manager.getAssessmentReview(submittedAssessmentId);
+        }
+
+        public object Getmarkingschemebymschemeid(int mschemeid)
         {
             return manager.Getmschemebymschemeid(mschemeid);
         }
 
         [HttpPost]
-        public bool Addassignment(assignment addAssignment)
+        public bool Addassignment(newAssignment assignment)
         {
-            return manager.Addassignment(addAssignment);
+            //return object_;
+            return manager.ProcessNewAssignment(assignment);
         }
 
         [HttpPut]
-        public bool Updateassignment(int assignid, assignment updateAssignment)
+        public bool Updateassignment(assessmentSubmission updateAssignment)
         {
-            return manager.Updateassignment(assignid, updateAssignment);
+            return manager.Updateassignment(updateAssignment);
         }
 
         [HttpDelete]
