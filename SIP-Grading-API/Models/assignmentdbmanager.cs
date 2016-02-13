@@ -388,7 +388,12 @@ namespace SIP_Grading_API.Models
             string reviewMarks = "";
             if (dr.Read())
             {
-                reviewMarks = (string)dr["assessmsub"];
+                if (dr["assessmsub"] != DBNull.Value)
+                {
+                    reviewMarks = (string)dr["assessmsub"];
+
+                }
+                
             }
 
             return new { assignmentId = assessmentId, submittedAssessment = reviewMarks };
